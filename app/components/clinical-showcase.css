@@ -1,0 +1,138 @@
+.clinical-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+  gap: 40px;
+  margin-top: 48px;
+  padding: 32px;
+  background: #f4e6f3;
+  border: 1px solid #e7cbe3;
+  border-radius: 24px;
+  align-items: center;
+}
+.clinical-copy { min-width: 0; padding: 8px; }
+.clinical-copy > .eyebrow { display: flex; align-items: center; gap: 8px; color: #9b638f; margin-bottom: 16px; }
+.clinical-copy > h3 { margin-bottom: 24px; }
+.clinical-switches { display: flex; flex-direction: column; gap: 8px; }
+.clinical-switch { display: flex; width: 100%; align-items: center; gap: 12px; padding: 12px; text-align: left; border: 1px solid transparent; border-radius: 16px; background: transparent; transition: background-color .3s var(--curve), transform .5s var(--curve); }
+.clinical-switch:hover { transform: translateX(4px); background: #fff9fd; }
+.clinical-switch[aria-pressed='true'] { background: #fffafd; border-color: #e3c6dc; color: #b63877; }
+.clinical-switch > span:first-child { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #ead7ec; color: #9c6aa2; flex-shrink: 0; }
+.clinical-switch[aria-pressed='true'] > span:first-child { background: #ffe1ee; color: var(--rose); }
+.clinical-switch > span:nth-child(2) { min-width: 0; }
+.clinical-switch small { display: block; color: #a08099; font-weight: 400; margin-top: 4px; }
+.clinical-switch > svg { margin-left: auto; color: #b78dab; }
+.clinical-description { padding-top: 24px; margin-top: 24px; border-top: 1px solid #dfc6db; animation: arrive .6s var(--curve) both; }
+.clinical-description h4 { max-width: 320px; margin-bottom: 12px; }
+.clinical-description p { max-width: 360px; color: var(--muted); }
+.clinical-stage { min-width: 0; padding: 24px; border: 1px solid #ead0e1; border-radius: 16px; background: #fff6fb; position: relative; }
+.clinical-stage-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.clinical-badge { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8e1ef; color: #b05787; border-radius: 9999px; }
+.clinical-scene-label { color: #ae8aa0; font-weight: 400; }
+.clinical-viewport { width: 100%; height: 360px; position: relative; isolation: isolate; overflow: hidden; border-radius: 16px; }
+.clinical-canvas-host { position: absolute; inset: 0; z-index: 2; opacity: 0; transition: opacity .6s var(--curve); }
+.clinical-canvas-host canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.clinical-viewport[data-ready='true'] .clinical-canvas-host { opacity: 1; }
+.clinical-viewport[data-ready='true'] .clinical-fallback { opacity: 0; pointer-events: none; }
+.clinical-controls { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid #ecd6e5; }
+.clinical-action { display: inline-flex; align-items: center; gap: 12px; border-radius: 9999px; background: #f5d8e9; color: #a04375; padding: 12px 16px; transition: background-color .3s var(--curve), transform .5s var(--curve); }
+.clinical-action:hover { background: #edc4dc; transform: translateY(-2px); }
+.clinical-action .caption-3 { font-weight: 400; color: #a97791; }
+.clinical-pause { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid #e9c9dd; background: transparent; display: grid; place-items: center; color: #a3658a; border-radius: 50%; transition: background-color .3s var(--curve); }
+.clinical-pause:hover { background: #f8e3ef; }
+.clinical-row-status { color: #a18197; font-weight: 400; margin-top: 12px; min-height: 32px; }
+.clinical-labels { display: flex; gap: 8px 16px; flex-wrap: wrap; padding-top: 12px; }
+.clinical-labels > span { color: #a77694; display: flex; align-items: center; gap: 4px; font-weight: 400; }
+.clinical-labels svg { color: #b5779c; }
+
+/* A complete, softly sculpted illustration stays available without WebGL. */
+.clinical-fallback { position: absolute; inset: 0; transition: opacity .5s var(--curve); }
+.fallback-plinth { position: absolute; left: 8%; right: 8%; bottom: 24px; height: 48px; background: #edc5da; border-radius: 50%; box-shadow: 0 8px 0 #d7a9c1, 0 16px 24px #8e507918; transform: rotateX(35deg); }
+.fallback-chart { position: absolute; left: 14%; top: 40px; width: 128px; height: 192px; display: flex; flex-direction: column; gap: 4px; align-items: center; padding: 16px 8px; color: #584054; background: #fffdfa; border: 4px solid #d9bfd5; border-radius: 8px; box-shadow: -8px 5px 0 #bd9db7, 0 12px 24px #a0668f12; transform: perspective(800px) rotateY(12deg) rotate(-2deg); }
+.fallback-chart > span:not(.fallback-chart-clip, .fallback-chart-stand) { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-align: center; width: 100%; border-radius: 4px; transition: background-color .3s var(--curve); }
+.fallback-chart > span:nth-child(2) { font-size: 48px; line-height: 48px; }
+.fallback-chart > span:nth-child(3) { font-size: 24px; line-height: 32px; }
+.fallback-chart > span:nth-child(4) { font-size: 18px; line-height: 28px; }
+.fallback-chart > .selected-row { background: #f7daeb; }
+.fallback-chart-clip { position: absolute; width: 32px; height: 8px; left: calc(50% - 16px); top: -8px; background: #b48dab; border-radius: 4px; }
+.fallback-chart-stand { position: absolute; bottom: -64px; width: 4px; height: 64px; background: #b08aa8; }
+.fallback-chart-stand::after { content: ''; position: absolute; height: 4px; width: 64px; background: #b08aa8; bottom: 0; left: -30px; border-radius: 4px; }
+.fallback-clinician { position: absolute; top: 48px; right: 20%; width: 80px; height: 224px; animation: clinician-breathe 6s var(--curve) infinite; }
+.clay-hair { position: absolute; width: 64px; height: 80px; left: 8px; top: -8px; background: #56372f; border-radius: 9999px; box-shadow: inset -8px 0 0 #432a29; }
+.clay-head { position: absolute; top: 0; left: 16px; width: 48px; height: 56px; border-radius: 50%; background: #dba583; box-shadow: inset -8px -4px 0 #c58c6f; z-index: 2; }
+.clay-head > i { position: absolute; width: 4px; height: 6px; top: 24px; left: 12px; border-radius: 50%; background: #533b37; }
+.clay-head > i:nth-child(2) { left: auto; right: 12px; }
+.clay-head > b { position: absolute; width: 12px; height: 6px; top: 36px; left: 18px; border-bottom: 2px solid #9c625b; border-radius: 50%; }
+.clay-body { position: absolute; top: 56px; left: 8px; width: 64px; height: 88px; border-radius: 24px 24px 12px 12px; background: #ce83a5; box-shadow: inset -12px 0 0 #b96d92, 4px 4px 8px #8a4f7712; z-index: 2; }
+.clay-body > i { position: absolute; right: 8px; top: 24px; height: 16px; width: 12px; background: #fff8f6; border-radius: 4px; }
+.clay-arm { position: absolute; width: 56px; height: 16px; top: 72px; left: -32px; background: #d6a17e; border-radius: 9999px; transform: rotate(-24deg); box-shadow: inset 0 -4px 0 #bf876c; z-index: 3; }
+.clay-pointer { position: absolute; width: 112px; height: 4px; top: 80px; left: -136px; background: #8d637c; border-radius: 4px; transform-origin: 100% 50%; transition: transform .7s var(--curve); z-index: 4; }
+.clay-leg { position: absolute; width: 24px; height: 80px; top: 136px; border-radius: 8px; background: #87718f; box-shadow: inset -8px 0 0 #735d7c; }
+.clay-leg::after { content: ''; position: absolute; width: 28px; height: 12px; bottom: -4px; background: #62445e; border-radius: 8px 4px 4px 4px; }
+.leg-one { left: 12px; }
+.leg-two { right: 12px; }
+.fallback-spark { position: absolute; right: 12%; top: 32px; color: #c68daf; animation: sparkle-pulse 6s var(--curve) infinite; }
+.fallback-arm { position: absolute; left: 10%; top: 128px; width: 176px; height: 48px; background: #d3a185; border-radius: 9999px; box-shadow: inset 0 -12px 0 #be8b72, 0 16px 16px #8a4f7710; transform: rotate(-8deg); }
+.fallback-cuff { position: absolute; top: -8px; left: 48px; width: 64px; height: 64px; border: 8px solid #a66696; border-radius: 16px; background: #b37aa3; box-shadow: inset -12px 0 0 #94628a, 4px 4px 0 #8e5a85; animation: cuff-inflate 4s var(--curve) infinite; }
+.fallback-tube { position: absolute; top: 48px; left: 88px; width: 112px; height: 64px; border: 4px solid #a47b9f; border-top-color: transparent; border-right-color: transparent; border-radius: 0 0 0 48px; }
+.fallback-monitor { position: absolute; top: 136px; right: 12%; width: 128px; height: 112px; padding: 12px 16px; background: #fff8f9; border: 4px solid #f0d9e6; border-radius: 16px; box-shadow: -8px 8px 0 #d8b6cc, 0 24px 24px #8a4f7715; transform: perspective(800px) rotateY(-12deg) rotateX(8deg); }
+.fallback-monitor > .caption-3 { display: block; color: #9b7596; }
+.fallback-monitor > .heading-4 { display: block; color: #8b6689; font-size: 24px; line-height: 32px; white-space: nowrap; }
+.fallback-monitor > svg { position: absolute; right: 12px; bottom: 8px; width: 24px; height: 24px; color: #bf82a5; }
+.monitor-button { position: absolute; bottom: 12px; left: 16px; width: 12px; height: 12px; border-radius: 50%; background: #d9a2bf; }
+.fallback-heart { position: absolute; top: 56px; right: 24%; color: #ca79a1; animation: heartbeat 4s var(--curve) infinite; }
+.clinical-showcase[data-paused='true'] .clinical-fallback * { animation-play-state: paused; }
+@keyframes clinician-breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes cuff-inflate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@media (max-width: 1100px) {
+  .clinical-showcase { gap: 24px; padding: 24px; }
+  .clinical-copy { padding: 0; }
+  .clinical-copy h3 { font-size: 30px; line-height: 36px; }
+  .clinical-stage { padding: 16px; }
+  .clinical-scene-label { display: none; }
+  .clinical-viewport { height: 320px; }
+  .clinical-switch { padding: 12px 8px; gap: 8px; }
+  .clinical-switch > svg { display: none; }
+  .fallback-chart { left: 8%; }
+  .fallback-clinician { right: 12%; }
+}
+@media (max-width: 760px) {
+  .clinical-showcase { grid-template-columns: minmax(0, 1fr); padding: 24px 16px 16px; gap: 24px; margin-top: 32px; }
+  .clinical-copy h3 { font-size: 30px; line-height: 36px; }
+  .clinical-copy > h3 br:nth-of-type(1) { display: none; }
+  .clinical-copy > h3 br:nth-of-type(1)::after { content: ' '; }
+  .clinical-switches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .clinical-switch { gap: 8px; padding: 12px 8px; flex-direction: column; align-items: flex-start; border-radius: 12px; }
+  .clinical-switch > span:first-child { height: 32px; width: 32px; border-radius: 8px; }
+  .clinical-switch .title-4 { font-size: 12px; line-height: 16px; }
+  .clinical-switch small { font-size: 12px; line-height: 16px; font-weight: 400; }
+  .clinical-description { padding-top: 16px; margin-top: 16px; }
+  .clinical-description h4 { font-size: 18px; line-height: 28px; margin-bottom: 8px; }
+  .clinical-description p { font-size: 14px; line-height: 20px; }
+  .clinical-stage { padding: 16px 12px; }
+  .clinical-viewport { height: 280px; }
+  .clinical-badge { padding: 8px 12px; }
+  .clinical-controls { padding-top: 12px; gap: 8px; }
+  .clinical-action { padding: 12px; gap: 8px; font-size: 12px; line-height: 16px; }
+  .clinical-row-status { font-size: 12px; line-height: 16px; min-height: 32px; }
+  .clinical-labels { gap: 8px 12px; }
+  .clinical-labels > span { font-size: 12px; line-height: 16px; }
+  .fallback-chart { left: 8%; top: 24px; transform: perspective(800px) rotateY(12deg) scale(.8); transform-origin: top left; }
+  .fallback-clinician { top: 32px; right: 8%; transform: scale(.88); animation: none; transform-origin: top right; }
+  .fallback-plinth { bottom: 16px; }
+  .fallback-arm { width: 144px; left: 4%; top: 112px; }
+  .fallback-cuff { left: 32px; }
+  .fallback-monitor { right: 4%; top: 144px; transform: perspective(800px) rotateY(-12deg) scale(.84); transform-origin: right bottom; }
+  .fallback-heart { top: 48px; right: 16%; width: 40px; height: 40px; }
+  .fallback-tube { width: 80px; left: 72px; }
+}
+@media (max-width: 380px) {
+  .clinical-copy > h3 { font-size: 24px; line-height: 32px; }
+  .clinical-showcase { padding-inline: 12px; }
+  .clinical-stage { padding-inline: 8px; }
+  .clinical-switch small { display: none; }
+  .fallback-chart { left: 4%; }
+  .fallback-clinician { right: 4%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clinical-showcase *, .clinical-showcase *::before, .clinical-showcase *::after { animation: none !important; transition: none !important; }
+}

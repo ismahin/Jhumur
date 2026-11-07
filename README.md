@@ -1,6 +1,6 @@
 # Jhumur
 
-An animated, responsive personal portfolio for **Tanji Akhter Jhumur**, a patient attendant in eye care in Dhaka, Bangladesh.
+An animated, responsive personal portfolio for **Tanji Akhter Jhumur**, a visionist and patient attendant in eye care in Dhaka, Bangladesh.
 
 Built with Next.js, React, TypeScript, and Tailwind CSS. Runs locally without a hosted service, database, sign-in, or API key.
 
@@ -40,7 +40,9 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 - Compact mobile hero with the portrait beside the introduction.
 - Animated eye care illustrations, pointer responsive portrait, scroll reveals, and word reveal.
 - Responsive navigation with keyboard controls and a full mobile menu.
-- Illustrated care cards, expandable details, and an interactive patient journey.
+- Illustrated care cards covering patient care, vision testing, and blood pressure checks.
+- Interactive Three.js scenes: a visionist demonstrating eye chart tests and a seated patient having a BP check.
+- Selectable chart rows, scene replay, pause controls, and an illustrated fallback when WebGL is unavailable.
 - Separate Experience and Education sections, with all qualifications visible.
 - FAQs and practical skill cards with Phosphor icons.
 - Email, telephone, and copy email actions.
@@ -52,6 +54,9 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 
 - `app/page.tsx`: main content and interactions.
 - `app/profile.ts`: shared contact details and hospital name.
+- `app/components/clinical-showcase.tsx`: interactive 3D care section and fallback.
+- `app/components/clinical-world.ts`: procedural models and animation.
+- `app/components/clinical-renderer.ts`: lazy WebGL renderer, camera, lighting, and resource management.
 - `app/globals.css`: colours, type, animation, and responsive styles.
 - `app/layout.tsx`: page title and social metadata.
 - `app/resume/page.tsx`: printable résumé.
@@ -61,5 +66,7 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 Set `NEXT_PUBLIC_SITE_URL` when deploying to a domain to use that origin for social sharing metadata. Local development defaults to `http://localhost:3000`.
 
 Google Fonts supplies Manrope; the website remains readable with its fallback font when offline. Contact links open the visitor's email or telephone application. There is no server contact form.
+
+Run `npm test` for the 3D scene geometry, mode selection, animation stability, reduced motion, and resource cleanup checks. The 3D renderer loads near the viewport and pauses offscreen or when the browser tab is hidden. No external 3D model downloads are needed. The blood pressure display contains illustrative dashes rather than a patient reading.
 
 The earlier hosted project is retained in the ignored `jhumur-portfolio/` folder on the original computer. The standalone application is at this repository's root.

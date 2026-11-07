@@ -120,6 +120,7 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .care-art-welcome { background: #ffe4f0; }
 .care-art-tests { background: #eee5f7; color: #8b5c9e; }
 .care-art-team { background: #ffeedf; color: #b87760; }
+.care-art-bp { background: #ffe3f0; color: #bc4e87; }
 .art-disc { position: absolute; height: 144px; width: 144px; border-radius: 50%; background: #ffffff7a; z-index: -1; }
 .art-main-icon { animation: icon-sway 7s var(--curve) infinite; }
 .care-card-2 .art-main-icon { animation-delay: -3s; }

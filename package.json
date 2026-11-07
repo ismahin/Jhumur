@@ -2,6 +2,7 @@
   "name": "jhumur-portfolio",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Tanji Akhter Jhumur's animated personal portfolio",
   "engines": {
     "node": ">=22.13.0"
@@ -10,19 +11,22 @@
     "dev": "next dev --hostname 127.0.0.1 --port 3000",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1 --port 3000",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "next": "16.4.5",
     "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react-dom": "19.2.6",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "@types/three": "^0.187.0",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3"
   }
