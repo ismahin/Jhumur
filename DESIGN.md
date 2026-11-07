@@ -6,6 +6,8 @@ The supplied landing page skill informed typography, spacing, floating navigatio
 
 The résumé opens a printable page with a Print / Save as PDF action. Contact actions open an email or telephone app. No server contact form is implied.
 
+The revised design uses brighter pink and lilac surfaces, Phosphor medical and eye care icons, an animated eye character, and a clickable patient journey illustration. The mobile hero uses a two column introduction and portrait layout. Experience and Education are separate sections. The user confirmed the current workplace as Maula Buksh Sardar Dattebayo Chokkhu Hospital, মাওলা বখ্শ সরদার দাতব্য চক্ষু হাসপাতাল; shared workplace details are in `app/profile.ts`.
+
 ## Portrait assets
 
 The built-in Imagegen tool produced both background edits. Original photographs remain untouched. Selected files are saved in `public/images/jhumur-hero.png` and `public/images/jhumur-about.png`.

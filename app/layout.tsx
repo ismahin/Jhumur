@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased"><noscript><style>{`.reveal,.word,.hero-enter{opacity:1!important;transform:none!important}`}</style></noscript>{children}</body>
     </html>
   );
 }

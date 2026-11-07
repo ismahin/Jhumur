@@ -36,10 +36,13 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 
 ## Features
 
-- Blush and ivory visual design with two adapted portrait backgrounds.
-- Animated hero, pointer responsive portrait, scroll reveals, and word reveal.
+- Pink and lilac visual design with two adapted portrait backgrounds.
+- Compact mobile hero with the portrait beside the introduction.
+- Animated eye care illustrations, pointer responsive portrait, scroll reveals, and word reveal.
 - Responsive navigation with keyboard controls and a full mobile menu.
-- Expandable care details, experience and education tabs, and FAQs.
+- Illustrated care cards, expandable details, and an interactive patient journey.
+- Separate Experience and Education sections, with all qualifications visible.
+- FAQs and practical skill cards with Phosphor icons.
 - Email, telephone, and copy email actions.
 - Printable résumé at `/resume` with a Save as PDF action.
 - Privacy, terms, and branded 404 pages.
@@ -48,6 +51,7 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 ## Edit the portfolio
 
 - `app/page.tsx`: main content and interactions.
+- `app/profile.ts`: shared contact details and hospital name.
 - `app/globals.css`: colours, type, animation, and responsive styles.
 - `app/layout.tsx`: page title and social metadata.
 - `app/resume/page.tsx`: printable résumé.
