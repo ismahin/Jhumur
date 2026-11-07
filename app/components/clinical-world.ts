@@ -136,7 +136,15 @@ export function buildClinicalWorld(textures: { chart: THREE.Texture; monitor: TH
     }
     pose(0, v(-.44, 1.2 + offset, .1), v(-.4, 1 + offset, .2));
     pose(1, v(.44, 1.2 + offset, .1), v(.4, 1 + offset, .2));
-    return { group, pose };
+    return {
+      group,
+      pose,
+      hands: arms.map(arm => arm.hand),
+      exposeUpperArm(index: number) {
+        arms[index].upper.material = material(skin);
+        return arms[index].upper;
+      },
+    };
   }
 
   const floor = mesh(root, new THREE.CylinderGeometry(2.65, 2.7, .07, 72), "#f7d8e7", v(0, .015, .05));
@@ -171,30 +179,39 @@ export function buildClinicalWorld(textures: { chart: THREE.Texture; monitor: TH
     [-1, 1].forEach(front => connect(rod(bp, "#b48da6", .035), v(-1.15 + side * .30, .6, front * .28), v(-1.15 + side * .35, .08, front * .32)));
   });
   const patient = person(bp, -1.15, .04, true, false);
-  patient.pose(1, v(.58, 1.18, .22), v(1.00, 1.18, .28));
+  patient.pose(1, v(.58, 1.20, .22), v(1.00, 1.20, .28));
   patient.pose(0, v(-.39, .96, .28), v(-.12, .88, .47));
-  const bpVisionist = person(bp, 1.12, -.23);
-  bpVisionist.pose(0, v(-.64, 1.38, .2), v(-1.24, 1.20, .49));
-  bpVisionist.pose(1, v(.39, 1.12, .32), v(-.27, .96, .84));
-  // The cuff covers the upper arm between the shoulder and elbow.
-  const cuff = mesh(bp, new THREE.CylinderGeometry(.145, .145, .27, 32, 1, true), "#a65a88", v(-.70, 1.285, .17));
+  patient.exposeUpperArm(1).name = "Patient upper arm";
+  patient.hands[1].scale.set(.115, .070, .078);
+  patient.hands[1].name = "Supported patient hand";
+  const bpVisionist = person(bp, 1.12, -.10);
+  bpVisionist.pose(0, v(-.46, 1.26, .28), v(-.60, 1.20, .73));
+  bpVisionist.pose(1, v(.38, 1.18, .18), v(.05, .96, .22));
+  // Align the fabric cuff to the exposed upper arm; only a subtle inflation moves.
+  const cuffRig = new THREE.Group();
+  cuffRig.position.set(-.685, 1.285, .15);
+  cuffRig.quaternion.setFromUnitVectors(v(0, 1, 0), v(.23, -.17, .22).normalize());
+  bp.add(cuffRig);
+  const cuff = mesh(cuffRig, new THREE.CylinderGeometry(.135, .135, .26, 32, 1, true), "#94658c", v(0, 0, 0));
   cuff.name = "Blood pressure upper arm cuff";
-  const upperArmAxis = v(.23, -.19, .22).normalize();
-  cuff.quaternion.setFromUnitVectors(v(0, 1, 0), upperArmAxis);
-  const cuffStripe = mesh(bp, new THREE.CylinderGeometry(.148, .148, .045, 32, 1, true), "#edb2ce", cuff.position.clone());
-  cuffStripe.quaternion.copy(cuff.quaternion);
-  tube(bp, [v(-.64, 1.28, .28), v(-.40, .95, .55), v(-.20, .72, .87), v(.20, .90, 1.04)], .025, "#9d7298");
-  mesh(bp, new THREE.CylinderGeometry(.55, .55, .09, 48), "#edb7d2", v(.35, .72, 1.0));
-  mesh(bp, new THREE.CylinderGeometry(.055, .08, .59, 24), "#b98aa8", v(.35, .39, 1.0));
-  mesh(bp, new THREE.CylinderGeometry(.37, .40, .06, 48), "#d5acc4", v(.35, .07, 1.0));
-  const monitor = box(bp, [.72, .48, .27], "#fff8f6", v(.35, 1.01, 1.0), .08);
+  mesh(cuffRig, new THREE.CylinderGeometry(.137, .137, .03, 32, 1, true), "#d4a7c3", v(0, .09, 0));
+  box(cuffRig, [.095, .18, .035], "#a87b9f", v(0, -.015, .13), .012);
+  sphere(cuffRig, [.032, .032, .032], "#785571", v(-.06, -.08, .12)).name = "Cuff tubing connector";
+  tube(bp, [v(-.72, 1.25, .27), v(-.96, 1.08, .60), v(-.80, .85, 1.18), v(-.15, .91, 1.19), v(.20, 1.23, .96)], .022, "#82677e");
+  // The patient's palm rests on a pad, with the monitor on the same stable table.
+  const careTable = box(bp, [1.75, .09, 1.0], "#e7c3d5", v(0, 1.04, .56), .045);
+  careTable.name = "Care table";
+  [-1, 1].forEach(side => {
+    [-1, 1].forEach(front => connect(rod(bp, "#b89aaf", .035), v(side * .7, 1.0, .56 + front * .35), v(side * .75, .07, .56 + front * .38)));
+  });
+  const armSupport = box(bp, [.66, .04, .30], "#f2d9e5", v(-.35, 1.105, .31), .02);
+  armSupport.name = "Patient arm support";
+  const monitor = box(bp, [.72, .48, .27], "#fff8f6", v(.52, 1.325, .78), .08);
   monitor.name = "Illustrated blood pressure monitor";
   const screen = new THREE.Mesh(new THREE.PlaneGeometry(.55, .29), new THREE.MeshBasicMaterial({ map: textures.monitor }));
-  screen.position.set(.35, 1.07, 1.141);
+  screen.position.set(.52, 1.385, .921);
   bp.add(screen);
-  sphere(bp, [.035, .035, .018], "#ce75a2", v(.35, .845, 1.14));
-  const bpHeart = heart(bp, v(.35, 1.70, 1.0), .34);
-  const tubePulse = sphere(bp, [.039, .039, .039], "#e989b7", v(-.50, 1.05, .46));
+  sphere(bp, [.03, .03, .015], "#b99aad", v(.52, 1.16, .921));
   let selectedRow = 0;
 
   function update(seconds: number, state: ClinicalState) {
@@ -216,14 +233,12 @@ export function buildClinicalWorld(textures: { chart: THREE.Texture; monitor: TH
     connect(pointer, hand, target);
     pointerTip.position.copy(target);
     highlight.position.y = rowY;
-    const puff = 1 + Math.sin(time * 2.1) * .035;
-    cuff.scale.set(puff, 1, puff);
-    cuffStripe.scale.copy(cuff.scale);
-    bpHeart.scale.setScalar(.34 * (1 + Math.pow(Math.max(0, Math.sin(time * 3.2)), 8) * .1));
-    bpHeart.position.y = 1.7 + Math.sin(time * 1.4) * .025;
+    const puff = 1 + Math.sin(time * 1.4) * .008;
+    cuffRig.scale.set(puff, 1, puff);
+    cuffRig.position.y = 1.285 + patient.group.position.y;
+    bpVisionist.pose(0, v(-.46, 1.26, .28), v(-.60, 1.20 + Math.sin(time * .9) * .008, .73));
     visionHeart.rotation.z = Math.sin(time * .9) * .12;
     visionHeart.position.y = 2.5 + Math.sin(time * 1.1) * .04;
-    tubePulse.scale.setScalar(.8 + Math.sin(time * 3.2) * .2);
   }
   update(0, { mode: "vision", row: 0, playing: true, reducedMotion: false, replay: 0 });
   function dispose() {

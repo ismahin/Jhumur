@@ -41,7 +41,7 @@ The production server also runs at http://localhost:3000. Run `npm run typecheck
 - Animated eye care illustrations, pointer responsive portrait, scroll reveals, and word reveal.
 - Responsive navigation with keyboard controls and a full mobile menu.
 - Illustrated care cards covering patient care, vision testing, and blood pressure checks.
-- Interactive Three.js scenes: a visionist demonstrating eye chart tests and a seated patient having a BP check.
+- Two independent Three.js scenes, displayed side by side on desktop and stacked on mobile: eye chart testing and a seated patient's BP check.
 - Selectable chart rows, scene replay, pause controls, and an illustrated fallback when WebGL is unavailable.
 - Separate Experience and Education sections, with all qualifications visible.
 - FAQs and practical skill cards with Phosphor icons.
@@ -67,6 +67,6 @@ Set `NEXT_PUBLIC_SITE_URL` when deploying to a domain to use that origin for soc
 
 Google Fonts supplies Manrope; the website remains readable with its fallback font when offline. Contact links open the visitor's email or telephone application. There is no server contact form.
 
-Run `npm test` for the 3D scene geometry, mode selection, animation stability, reduced motion, and resource cleanup checks. The 3D renderer loads near the viewport and pauses offscreen or when the browser tab is hidden. No external 3D model downloads are needed. The blood pressure display contains illustrative dashes rather than a patient reading.
+Run `npm test` for scene geometry, animation stability, camera framing, cuff alignment, patient arm support, reduced motion, and resource cleanup checks. Each 3D renderer loads near the viewport and pauses offscreen or when the browser tab is hidden. The two cards have independent pause controls. No external 3D model downloads are needed. The blood pressure display contains illustrative dashes rather than a patient reading.
 
 The earlier hosted project is retained in the ignored `jhumur-portfolio/` folder on the original computer. The standalone application is at this repository's root.

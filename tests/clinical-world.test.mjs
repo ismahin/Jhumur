@@ -67,6 +67,44 @@ test("cleanup disposes every geometry exactly once", () => {
   assert.ok([...counts.values()].every(count => count === 1));
 });
 
+test("BP animation keeps small rounded details smaller than a patient's head", () => {
+  const instance = world();
+  try {
+    for (let frame = 0; frame <= 240; frame++) {
+      instance.update(frame / 20, state({ mode: "bp" }));
+      instance.root.updateMatrixWorld(true);
+      instance.bp.traverse(object => {
+        if (object instanceof THREE.Mesh && object.geometry instanceof THREE.SphereGeometry) {
+          const size = new THREE.Box3().setFromObject(object).getSize(new THREE.Vector3());
+          assert.ok(Math.max(size.x, size.y, size.z) < .8, `Oversized rounded detail at ${frame / 20}s: ${object.name || object.type}`);
+        }
+      });
+    }
+  } finally { instance.dispose(); }
+});
+
+test("the BP cuff follows the upper arm and the patient's palm stays over its support", () => {
+  const instance = world();
+  try {
+    for (const seconds of [0, 1.5, 3.5, 8, 12]) {
+      instance.update(seconds, state({ mode: "bp" }));
+      instance.root.updateMatrixWorld(true);
+      const arm = instance.bp.getObjectByName("Patient upper arm");
+      const cuff = instance.bp.getObjectByName("Blood pressure upper arm cuff");
+      const hand = instance.bp.getObjectByName("Supported patient hand");
+      const support = instance.bp.getObjectByName("Patient arm support");
+      assert.ok(arm && cuff && hand && support);
+      assert.ok(arm.getWorldPosition(new THREE.Vector3()).distanceTo(cuff.getWorldPosition(new THREE.Vector3())) < .001);
+      const handBounds = new THREE.Box3().setFromObject(hand);
+      const supportBounds = new THREE.Box3().setFromObject(support);
+      assert.ok(handBounds.min.y - supportBounds.max.y >= 0 && handBounds.min.y - supportBounds.max.y < .015);
+      assert.ok(handBounds.min.x >= supportBounds.min.x && handBounds.max.x <= supportBounds.max.x);
+      const cuffSize = new THREE.Box3().setFromObject(cuff, true).getSize(new THREE.Vector3());
+      assert.ok(Math.max(cuffSize.x, cuffSize.y, cuffSize.z) < .4);
+    }
+  } finally { instance.dispose(); }
+});
+
 test("patients, equipment, and charts stay inside phone and desktop camera frames", () => {
   const instance = world();
   for (const aspect of [250 / 280, 320 / 280, 390 / 280, 640 / 360]) {

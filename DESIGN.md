@@ -6,13 +6,15 @@ The supplied landing page skill informed typography, spacing, floating navigatio
 
 The résumé opens a printable page with a Print / Save as PDF action. Contact actions open an email or telephone app. No server contact form is implied.
 
-The revised design uses brighter pink and lilac surfaces, Phosphor medical and eye care icons, an animated eye character, and a clickable patient journey illustration. The mobile hero uses a two column introduction and portrait layout. Experience and Education are separate sections. The user confirmed the current workplace as Maula Buksh Sardar Dattebayo Chokkhu Hospital, মাওলা বখ্শ সরদার দাতব্য চক্ষু হাসপাতাল; shared workplace details are in `app/profile.ts`.
+The revised design uses brighter pink and lilac surfaces, Phosphor medical and eye care icons, an animated eye character, and interactive 3D care demonstrations. The mobile hero uses a two column introduction and portrait layout. Experience and Education are separate sections. The user confirmed the current workplace as Maula Buksh Sardar Dattebayo Chokkhu Hospital, মাওলা বখ্শ সরদার দাতব্য চক্ষু হাসপাতাল; shared workplace details are in `app/profile.ts`.
 
 ## Clinical scenes
 
 The user confirmed that Jhumur also works as a visionist, performs eye chart tests, and checks every patient's blood pressure. The hero, care cards, experience, metadata, and printable résumé reflect these responsibilities without adding a medical qualification. Shared role text lives in `app/profile.ts`.
 
 The clinical illustrations are real procedural Three.js scenes, created in code with rounded clay materials and the site's pink and lilac palette. One shows a female care professional pointing to an eye chart; the second shows a seated adult patient, an upper arm cuff, connecting tube, and monitor. These are generic professional illustrations rather than portraits of Jhumur. There are no invented patient measurements. Scene controls and a complete CSS illustration remain available without WebGL. Motion respects reduced motion preferences, pauses offscreen, and stops when the tab is hidden.
+
+Both scenes are visible simultaneously in separate cards: two columns on desktop and a vertical stack on mobile. Each has independent controls. The BP scene uses a cuff fitted around the exposed upper arm, a supported forearm and palm, a stable table, slack tubing, and a correctly sized monitor. A regression test checks that small rounded details cannot expand into oversized shapes during animation.
 
 ## Portrait generation
 
